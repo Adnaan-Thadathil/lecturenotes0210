@@ -1,0 +1,89 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package sorts;
+
+/**
+ *
+ * @author zlin
+ */
+public class Sorts {
+    // find minima in a sub-array in the range [k, m]
+    public static int findMinima(int [] inputArray, int k, int m)
+    {
+        int minima = k;
+
+        for (int i = k+1; i <= m; ++i)
+        {
+            if (inputArray[i] < inputArray[minima])
+            {
+                minima = i;
+            }
+        }
+        return minima;
+    }
+
+    public static int findMaxima(int [] inputArray, int k, int m)
+    {
+        int maxima = k;
+
+        for (int i = k+1; i <= m; ++i)
+        {
+            if (inputArray[i] > inputArray[maxima])
+            {
+                maxima = i;
+            }
+        }
+        return maxima;
+    }
+    public static void swap(int [] x, int i, int j)
+    {
+        int temp = x[i];
+        x[i] = x[j];
+        x[j] = temp;
+    }
+
+    public static void selectSort(int array[])
+    {
+        int N = array.length;
+        for (int i=0; i < N-1; i++)
+        {
+            int minima =  findMinima(array,i,N-1);
+            if (minima != i)
+                swap(array, i, minima);
+        }
+    }
+    public static void selectSort1(int array[])
+    {
+        int N = array.length;
+        //subarray: [0, i],  i=N-1,N-2,.....1
+        for (int i=N-1; i>0; i--)
+        {
+            int maxima =  findMaxima(array,0,i);
+            if (maxima != i)
+                swap(array, i, maxima);
+        }
+    }
+
+    public static boolean isSorted(int [] x)
+    {
+        for (int i=1; i < x.length; i++)
+        {
+            if (x[i-1] > x[i]) return false;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+
+        int [] x = new int[]{3, 1, 5, 2, 8, 9};
+
+        selectSort(x);
+        boolean sorted = isSorted(x);
+        System.out.println(sorted);
+
+    }
+
+}
